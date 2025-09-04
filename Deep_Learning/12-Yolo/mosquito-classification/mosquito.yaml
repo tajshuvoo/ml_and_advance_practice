@@ -1,0 +1,6 @@
+train: /kaggle/input/mosquito-dataset-in-train-test-split/train
+val: /kaggle/input/mosquito-dataset-in-train-test-split/val
+test: /kaggle/input/mosquito-dataset-in-train-test-split/test
+
+nc: 3
+names: ['AEDES', 'ANOPHELES', 'CULEX']

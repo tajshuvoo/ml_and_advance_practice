@@ -5,6 +5,7 @@ langchain-core
 # OpenAI Integration
 langchain-openai
 openai
+torch
 
 # Anthropic Integration
 langchain-anthropic

@@ -89,7 +89,12 @@ if user_input:
          
             msg_chunk.content for msg_chunk , meta_data in  workflow.stream(
                 {'messages':[HumanMessage(content=user_input)]},
-                config = {'configurable':{ 'thread_id': st.session_state['thread_id']}},
+                config = {'configurable':{ 'thread_id': st.session_state['thread_id']},
+                          'metadata':{
+                              'thread_id': st.session_state['thread_id']
+                          },
+                          'run_name':'chat_turn'
+                          },
                 stream_mode='messages'
             )
         )

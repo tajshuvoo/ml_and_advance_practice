@@ -114,9 +114,7 @@ async def _init_checkpointer():
 
 checkpointer = run_async(_init_checkpointer())
 
-# -------------------
-# 6. Graph
-# -------------------
+
 graph = StateGraph(ChatState)
 graph.add_node("chat_node", chat_node)
 graph.add_edge(START, "chat_node")
@@ -130,9 +128,6 @@ else:
 
 chatbot = graph.compile(checkpointer=checkpointer)
 
-# -------------------
-# 7. Helper
-# -------------------
 async def _alist_threads():
     all_threads = set()
     async for checkpoint in checkpointer.alist(None):

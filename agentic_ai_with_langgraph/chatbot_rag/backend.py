@@ -23,9 +23,7 @@ import requests
 
 load_dotenv()
 
-# -------------------
-# 1. LLM + embeddings
-# -------------------
+
 llm = HuggingFaceEndpoint(
     repo_id="Qwen/Qwen2.5-7B-Instruct"
 )
@@ -35,9 +33,7 @@ embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
-# -------------------
-# 2. PDF retriever store (per thread)
-# -------------------
+
 _THREAD_RETRIEVERS: Dict[str, Any] = {}
 _THREAD_METADATA: Dict[str, dict] = {}
 
@@ -96,9 +92,7 @@ def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None
             pass
 
 
-# -------------------
-# 3. Tools
-# -------------------
+
 search_tool = DuckDuckGoSearchRun(region="us-en")
 
 

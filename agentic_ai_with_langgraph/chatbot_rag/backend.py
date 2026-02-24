@@ -85,7 +85,7 @@ def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None
             "chunks": len(chunks),
         }
     finally:
-        # The FAISS store keeps copies of the text, so the temp file is safe to remove.
+        
         try:
             os.remove(temp_path)
         except OSError:
@@ -187,16 +187,12 @@ mcp_tools = load_mcp_tools()
 tools = [search_tool, get_stock_price, calculator, rag_tool, *mcp_tools]
 llm_with_tools = llm.bind_tools(tools)
 
-# -------------------
-# 4. State
-# -------------------
+
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
 
-# -------------------
-# 5. Nodes
-# -------------------
+
 def chat_node(state: ChatState, config=None):
     """LLM node that may answer or request a tool call."""
     thread_id = None
@@ -220,15 +216,10 @@ def chat_node(state: ChatState, config=None):
 
 tool_node = ToolNode(tools)
 
-# -------------------
-# 6. Checkpointer
-# -------------------
 conn = sqlite3.connect(database="chatbot.db", check_same_thread=False)
 checkpointer = SqliteSaver(conn=conn)
 
-# -------------------
-# 7. Graph
-# -------------------
+
 graph = StateGraph(ChatState)
 graph.add_node("chat_node", chat_node)
 graph.add_node("tools", tool_node)
@@ -239,9 +230,6 @@ graph.add_edge("tools", "chat_node")
 
 chatbot = graph.compile(checkpointer=checkpointer)
 
-# -------------------
-# 8. Helpers
-# -------------------
 def retrieve_all_threads():
     all_threads = set()
     for checkpoint in checkpointer.list(None):

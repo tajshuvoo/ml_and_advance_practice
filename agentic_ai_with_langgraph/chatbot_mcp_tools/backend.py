@@ -36,17 +36,12 @@ def submit_async_task(coro):
     return _submit_async(coro)
 
 
-# -------------------
-# 1. LLM
-# -------------------
 llm = HuggingFaceEndpoint(
     repo_id="Qwen/Qwen2.5-7B-Instruct"
 )
 llm = ChatHuggingFace(llm=llm)
 
-# -------------------
-# 2. Tools
-# -------------------
+
 search_tool = DuckDuckGoSearchRun(region="us-en")
 
 

@@ -5,7 +5,6 @@ import streamlit as st
 from backend import chatbot, retrieve_all_threads, submit_async_task
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
-# =========================== Utilities ===========================
 def generate_thread_id():
     return uuid.uuid4()
 
@@ -24,11 +23,9 @@ def add_thread(thread_id):
 
 def load_conversation(thread_id):
     state = chatbot.get_state(config={"configurable": {"thread_id": thread_id}})
-    # Check if messages key exists in state values, return empty list if not
     return state.values.get("messages", [])
 
 
-# ======================= Session Initialization ===================
 if "message_history" not in st.session_state:
     st.session_state["message_history"] = []
 
@@ -40,7 +37,6 @@ if "chat_threads" not in st.session_state:
 
 add_thread(st.session_state["thread_id"])
 
-# ============================ Sidebar ============================
 st.sidebar.title("LangGraph MCP Chatbot")
 
 if st.sidebar.button("New Chat"):
